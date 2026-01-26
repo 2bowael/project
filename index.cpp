@@ -77,10 +77,10 @@ int main() {
             goto return1;
         case 2:
             for (int i = 0; i < count; i++){
-                cout << "\n"<< i + 1<< "."<< names[i]<< " => {Roll Number: ";
-                cout << rolls[i]<< " ,Total: ";
-                cout << total[i]<< " ,Average: "<< average[i];
-                cout << " ,Grade: "<< grade[i]<< " }"<< "\n\n";
+                cout << "\n"<< i + 1<<"_" <<names[i]<< " => {Roll Number : ";
+                cout << rolls[i] << " / Total : ";
+                cout << total[i] << " / Average : "<< average[i];
+                cout << " / Grade : " << grade[i] << " }" << "\n\n";
             }
 
             goto return1;
