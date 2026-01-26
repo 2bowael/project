@@ -20,7 +20,7 @@ int main() {
     cout << "3. Update Scores\n";
     cout << "4. Delete Student\n";
     cout << "5. Search Student\n";
-    cout << "6. Exit\n\n\n";
+    cout << "6. Exit\n\n";
 
     int num;
     cout << "Enter your choice: ";
@@ -30,8 +30,8 @@ int main() {
 
         case 1:
             if (count >= 50) {
-                cout << "You can't add any other student\n";
-                break;
+                cout << "You can't add any other student\n\n";
+                goto return1;
             }
 
             cout << "Enter student name: ";
@@ -43,7 +43,7 @@ int main() {
             for (int i = 0; i < count; i++) {
                 if (rolls[i] == rolls[count]) {
                     cout << "Roll number is already exists!\n";
-                    goto end_case1;
+                    goto end_case;
                 }
             }
 
@@ -54,8 +54,8 @@ int main() {
                 cin >> scores[count][i];
 
                 if (scores[count][i] < 0 || scores[count][i] > 100) {
-                    cout << "Invalid score!\n";
-                    goto end_case1;
+                    cout << "Invalid score!\n\n\n";
+                    goto end_case;
                 }
 
                 total[count] += scores[count][i];
@@ -70,18 +70,59 @@ int main() {
             else grade[count] = 'F';
 
             count++;
-            cout << "Student added successfully!\n";
 
-            end_case1:
-            goto start;
+            cout << "\n\n";
+            cout << "Student added successfully!\n\n";
+            
+            goto return1;
         case 2:
+            for (int i = 0; i < count; i++){
+                cout << "\n"<< i + 1<< "."<< names[i]<< " => {Roll Number: ";
+                cout << rolls[i]<< " ,Total: ";
+                cout << total[i]<< " ,Average: "<< average[i];
+                cout << " ,Grade: "<< grade[i]<< " }"<< "\n\n";
+            }
+
+            goto return1;
         case 3:
         case 4:
         case 5:
+            int num_1;
+            cout << "Enter Roll Number To Search: ";
+            cin >> num_1;
+
+            for (int i = 0; i < count; i++){
+                if (rolls[i] == num_1){
+                    cout << "\n"<< i + 1<< "."<< names[i]<< " => {Roll Number: ";
+                cout << rolls[i]<< " ,Total: ";
+                cout << total[i]<< " ,Average: "<< average[i];
+                cout << " ,Grade: "<< grade[i]<< " }"<< "\n\n";
+                }else {
+                    cout << "==This Roll Number Isn't Exists==\n\n";
+                }
+            }
+
+            goto return1;
         case 6:
-        default:
-            cout << "==Invalid Input==";
+            cout << "==Thanks For Tring Our App==";
             break;
+        default:
+            cout << "==Invalid Input!==\n\n";
+            goto return1;
     }
 
+    return1:
+            int num_0;
+            cout << "Enter 0 to return: ";
+            cin >> num_0;
+            cout << "\n\n";
+
+            if (num_0 == 0){
+               goto end_case;
+            }else{
+               cout << "==Invalid input!==\n\n";
+               goto return1;
+            }
+            end_case:
+            goto start;
 }
