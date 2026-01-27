@@ -74,7 +74,20 @@ int main() {
             cout << "\n\n";
             cout << "Student added successfully!\n\n";
             
-            goto return1;
+            return1:
+            int num_0;
+            cout << "Enter 0 to return: ";
+            cin >> num_0;
+            cout << "\n\n";
+
+            if (num_0 == 0){
+               goto end_case;
+            }else{
+               cout << "==Invalid input!==\n\n";
+               goto return1;
+            }
+            end_case:
+            goto start;
         case 2:
             for (int i = 0; i < count; i++){
                 cout << "\n"<< i + 1<<"_" <<names[i]<< " => {Roll Number : ";
@@ -104,25 +117,11 @@ int main() {
 
             goto return1;
         case 6:
-            cout << "==Thanks For Tring Our App==";
+            cout << "\n==Thanks For Tring Our App==\n\n";
             break;
         default:
-            cout << "==Invalid Input!==\n\n";
+            cout << "\n==Invalid Input!==\n\n";
             goto return1;
     }
 
-    return1:
-            int num_0;
-            cout << "Enter 0 to return: ";
-            cin >> num_0;
-            cout << "\n\n";
-
-            if (num_0 == 0){
-               goto end_case;
-            }else{
-               cout << "==Invalid input!==\n\n";
-               goto return1;
-            }
-            end_case:
-            goto start;
 }
