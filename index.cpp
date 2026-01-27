@@ -97,7 +97,51 @@ int main() {
             }
 
             goto return1;
-        case 3:
+        case 3:{
+
+            int num1;  
+            bool mark = false;  
+            cout << "enter roll number to update scores: ";  
+            cin >> num1;  
+            for (int i = 0; i < count; i++){  
+            if (rolls[i] == num1){  
+            mark = true;  
+
+            putscores:
+            cout << "Enter new scores for 5 subjects:\n";  
+            total[i] = 0;  
+
+            for (int j = 0; j < 5; j++){  
+                cin >> scores[i][j];  
+
+                if (scores[i][j] < 0 || scores[i][j] > 100) {  
+                    cout << "==Invalid score!==\n";
+                    cout << "==Put it again==\n\n";  
+                    goto putscores;  
+                }  
+
+                total[i] += scores[i][j];  
+            }  
+
+            average[i] = total[i] / 5.00;  
+
+            if (average[i] >= 90) {grade[i] = 'A';}  
+            else if (average[i] >= 80){ grade[i] = 'B';}  
+            else if (average[i] >= 70) {grade[i] = 'C';}  
+            else if (average[i] >= 60){ grade[i] = 'D';}  
+            else {grade[i] = 'F';}  
+
+            cout << "\n==Scores updated successfully!==\n\n";  
+            goto return1;  
+            }  
+            }  
+
+            if(!mark) {  
+            cout << "\n==This Roll Number Isn't correct==\n\n";  
+            }  
+
+            goto return1;  
+            }
         case 4:
         case 5:
             int num_1;
