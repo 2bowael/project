@@ -88,6 +88,8 @@ int main() {
             }
             end_case:
             goto start;
+
+
         case 2:
             for (int i = 0; i < count; i++){
                 cout << "\n"<< i + 1<<"_" <<names[i]<< " => {Roll Number : ";
@@ -97,8 +99,9 @@ int main() {
             }
 
             goto return1;
-        case 3:{
 
+
+        case 3:{
             int num1;  
             bool mark = false;  
             cout << "enter roll number to update scores: ";  
@@ -141,9 +144,45 @@ int main() {
             }  
 
             goto return1;  
+        }
+
+        case 4:{
+            int rollDel;
+            cout << "Enter Roll Number To Delete: ";
+            cin >> rollDel;
+
+            bool found = false;
+
+            for (int i = 0; i < count; i++) {
+                if (rolls[i] == rollDel) {
+                    found = true;
+
+                    for (int j = i; j < count - 1; j++) {
+                        names[j] = names[j + 1];
+                        rolls[j] = rolls[j + 1];
+                        total[j] = total[j + 1];
+                        average[j] = average[j + 1];
+                        grade[j] = grade[j + 1];
+
+                        for (int k = 0; k < 5; k++) {
+                            scores[j][k] = scores[j + 1][k];
+                        }
+                    }
+
+                    count--;
+                    cout << "\nStudent deleted successfully!\n\n";
+                    goto return1;
+                }
             }
-        case 4:
-        case 5:
+
+            if (!found) {
+                cout << "\n==This Roll Number Doesn't Exist==\n\n";
+            }
+
+            goto return1;
+        }
+
+        case 5:{
             int num_1;
             cout << "Enter Roll Number To Search: ";
             cin >> num_1;
@@ -160,9 +199,12 @@ int main() {
             }
 
             goto return1;
+        }
+
         case 6:
             cout << "\n==Thanks For Tring Our App==\n\n";
             break;
+
         default:
             cout << "\n==Invalid Input!==\n\n";
             goto return1;
