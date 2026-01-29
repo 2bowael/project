@@ -14,7 +14,9 @@ int main() {
 
 
     start:
+    cout << "=================================\n";
     cout << "===== STUDENT GRADE TRACKER =====\n";
+    cout << "=================================\n";
     cout << "1. Add Student\n";
     cout << "2. View Students\n";
     cout << "3. Update Scores\n";
@@ -98,49 +100,53 @@ int main() {
                 cout << " / Grade : " << grade[i] << " }" << "\n\n";
             }
 
+            if (count == 0){
+                cout << "\n==There is no students yet!==\n\n";
+            }
+
             goto return1;
 
 
         case 3:{
             int num1;  
             bool mark = false;  
-            cout << "enter roll number to update scores: ";  
+            cout << "Enter roll number to update scores: ";  
             cin >> num1;  
             for (int i = 0; i < count; i++){  
-            if (rolls[i] == num1){  
-            mark = true;  
+                if (rolls[i] == num1){  
+                    mark = true;  
 
-            putscores:
-            cout << "Enter new scores for 5 subjects:\n";  
-            total[i] = 0;  
+                    putscores:
+                    cout << "Enter new scores for 5 subjects:\n";  
+                    total[i] = 0;  
 
-            for (int j = 0; j < 5; j++){  
-                cin >> scores[i][j];  
+                    for (int j = 0; j < 5; j++){  
+                        cin >> scores[i][j];  
 
-                if (scores[i][j] < 0 || scores[i][j] > 100) {  
-                    cout << "==Invalid score!==\n";
-                    cout << "==Put it again==\n\n";  
-                    goto putscores;  
+                        if (scores[i][j] < 0 || scores[i][j] > 100) {  
+                            cout << "==Invalid score!==\n";
+                            cout << "==Put it again==\n\n";  
+                            goto putscores;  
+                        }  
+
+                        total[i] += scores[i][j];  
+                    }  
+
+                    average[i] = total[i] / 5.00;  
+
+                    if (average[i] >= 90) {grade[i] = 'A';}  
+                    else if (average[i] >= 80){ grade[i] = 'B';}  
+                    else if (average[i] >= 70) {grade[i] = 'C';}  
+                    else if (average[i] >= 60){ grade[i] = 'D';}  
+                    else {grade[i] = 'F';}  
+
+                    cout << "\n==Scores updated successfully!==\n\n";  
+                    goto return1;  
                 }  
-
-                total[i] += scores[i][j];  
             }  
 
-            average[i] = total[i] / 5.00;  
-
-            if (average[i] >= 90) {grade[i] = 'A';}  
-            else if (average[i] >= 80){ grade[i] = 'B';}  
-            else if (average[i] >= 70) {grade[i] = 'C';}  
-            else if (average[i] >= 60){ grade[i] = 'D';}  
-            else {grade[i] = 'F';}  
-
-            cout << "\n==Scores updated successfully!==\n\n";  
-            goto return1;  
-            }  
-            }  
-
-            if(!mark) {  
-            cout << "\n==This Roll Number Isn't correct==\n\n";  
+            if(!mark) {
+                cout << "\n==This Roll Number Isn't correct==\n\n";  
             }  
 
             goto return1;  
@@ -170,7 +176,7 @@ int main() {
                     }
 
                     count--;
-                    cout << "\nStudent deleted successfully!\n\n";
+                    cout << "\n==Student deleted successfully!==\n\n";
                     goto return1;
                 }
             }
@@ -183,23 +189,56 @@ int main() {
         }
 
         case 5:{
-            int num_1;
-            cout << "Enter Roll Number To Search: ";
-            cin >> num_1;
+            int choice;
+            cout << "\nSearch By:\n1. Roll Number\n2. Name\nChoose: ";
+            cin >> choice;
 
-            for (int i = 0; i < count; i++){
-                if (rolls[i] == num_1){
-                    cout << "\n"<< i + 1<< "."<< names[i]<< " => {Roll Number: ";
-                cout << rolls[i]<< " ,Total: ";
-                cout << total[i]<< " ,Average: "<< average[i];
-                cout << " ,Grade: "<< grade[i]<< " }"<< "\n\n";
-                }else {
-                    cout << "==This Roll Number Isn't Exists==\n\n";
+            bool found = false;
+
+            if (choice == 1) {
+                int r;
+                cout << "Enter roll number: ";
+                cin >> r;
+
+                for (int i = 0; i < count; i++) {
+                    if (rolls[i] == r) {
+                        cout << "\nName: " << names[i];
+                        cout << "\nRoll: " << rolls[i];
+                        cout << "\nScores: ";
+                        for (int j = 0; j < 5; j++){
+                            cout << scores[i][j] << " ";
+                            cout << "\nAverage: " << average[i];
+                            cout << "\nGrade: " << grade[i] << "\n";
+                        }
+                        found = true;
+                        goto return1;
+                    }
                 }
             }
 
+            else if (choice == 2) {
+                string s;
+                cin.ignore();
+                cout << "Enter name: ";
+                getline(cin, s);
+
+                for (int i = 0; i < count; i++) {
+                    if (names[i].find(s) != string::npos) {
+                        cout << "\nName: " << names[i];
+                        cout << "\nRoll: " << rolls[i];
+                        cout << "\nAverage: " << average[i];
+                        cout << "\nGrade: " << grade[i] << "\n";
+                        found = true;
+                    }
+                }
+            }
+
+            if (!found)
+            cout << "\nStudent not found!\n";
+
             goto return1;
         }
+
 
         case 6:
             cout << "\n==Thanks For Tring Our App==\n\n";
