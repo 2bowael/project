@@ -27,7 +27,6 @@ start:
 	while (true)
 	{
 		cout << "Enter your choice: ";
-		cin >> num;
 
 		if (cin >> num)
 		{
@@ -82,16 +81,32 @@ start:
 
 return1:
 				int num_0;
-				cout << "Enter 0 to return: ";
-				cin >> num_0;
-				cout << "\n\n";
 
-				if (num_0 == 0) {
-					goto end_case;
-				} else {
-					cout << "==Invalid input!==\n\n";
-					goto return1;
+				while (true)
+				{
+					cout <<  "Enter 0 To return: ";
+
+					if (cin >> num_0) {
+						if (num_0 == 0) {
+							cout << "\n\n";
+							goto end_case;
+
+						} else {
+							cout << "\n==Invalid input!==\n\n";
+							goto return1;
+
+						}
+					} else {
+						cout << "\n==Invalid input!==\n";
+						cout << "==Please put an integer==\n\n";
+						cin.clear();
+						cin.ignore(10000, '\n');
+
+						goto return1;
+					}
 				}
+
+
 end_case:
 				goto start;
 
@@ -257,6 +272,11 @@ putscores:
 			case 6:
 				cout << "\n==Thanks For Tring Our App==\n\n";
 				break;
+
+
+			default:
+				cout << "==Invalid input!==\n\n";
+				goto return1;
 			}
 
 		} else {
