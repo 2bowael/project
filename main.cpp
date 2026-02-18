@@ -112,20 +112,21 @@ int main() {
 				goto start;
 				
 				
-				case 2:
-				for (int i = 0; i < count; i++) {
-					cout << "\n"<< i + 1<<"_" <<names[i]<< " => [Roll Number : ";
-					cout << rolls[i] << " / Total : ";
-					cout << total[i] << " / Average : "<< average[i];
-					cout << " / Grade : " << grade[i] << " ]" << "\n\n";
-				}
-				
-				if (count == 0) {
-					cout << "\n==There Is No Students Yet!==\n\n";
-				}
+				case 2: {
+				    if (count == 0) {
+					    cout << "\n==There Is No Students Yet!==\n\n";
+				    }
 
-				goto return1;
-				
+				    for (int i = 0; i < count; i++) {
+					    cout << "\n"<< i + 1<<"_" <<names[i]<< " => [Roll Number : ";
+					    cout << rolls[i] << " / Total : ";
+					    cout << total[i] << " / Average : "<< average[i];
+					    cout << " / Grade : " << grade[i] << " ]" << "\n\n";
+				    }
+
+				    goto return1;
+
+			    }
 				case 3: {
 					
 					if (count == 0)
@@ -177,9 +178,9 @@ int main() {
 					}
 	
 					double avg = 0;
-	
+					
 					cout << "The Average Is: \n";
-	
+					
 					for (int i = 0; i < count; i++)
 					{
 						avg += average[i];
@@ -188,42 +189,48 @@ int main() {
 					cout << "=[ " << avg / count << " ]=\n\n";
 					goto return1;
 				}
-
+				
 				case 5: {
-				int num1;
-				bool mark = false;
-				cout << "Enter Roll Number To Update Scores: ";
-				cin >> num1;
-				for (int i = 0; i < count; i++) {
-					if (rolls[i] == num1) {
-						mark = true;
-
-                        putscores:
-						cout << "Enter New Scores For 5 Subjects:\n";
-						total[i] = 0;
-
-						for (int j = 0; j < 5; j++) {
-							cin >> scores[i][j];
-
-							if (scores[i][j] < 0 || scores[i][j] > 100) {
-								cout << "==Invalid Score!==\n";
-								cout << "==Put It Again==\n\n";
-								goto putscores;
+					if (count == 0)
+					{
+						cout << "\n==There Is No student Yet!==\n\n";
+						goto return1;
+					}
+					
+					int num1;
+					bool mark = false;
+					cout << "Enter Roll Number To Update Scores: ";
+					cin >> num1;
+					for (int i = 0; i < count; i++) {
+						if (rolls[i] == num1) {
+							mark = true;
+							
+							putscores:
+							cout << "Enter New Scores For 5 Subjects:\n";
+							total[i] = 0;
+							
+							for (int j = 0; j < 5; j++) {
+								cin >> scores[i][j];
+								
+								if (scores[i][j] < 0 || scores[i][j] > 100) {
+									cout << "==Invalid Score!==\n";
+									cout << "==Put It Again==\n\n";
+									goto putscores;
+								}
+								
+								total[i] += scores[i][j];
 							}
-
-							total[i] += scores[i][j];
-						}
-
-						average[i] = total[i] / 5.00;
-
-						if (average[i] >= 90) {
-							grade[i] = 'A';
-						}
-						else if (average[i] >= 80) {
-							grade[i] = 'B';
-						}
-						else if (average[i] >= 70) {
-							grade[i] = 'C';
+							
+							average[i] = total[i] / 5.00;
+							
+							if (average[i] >= 90) {
+								grade[i] = 'A';
+							}
+							else if (average[i] >= 80) {
+								grade[i] = 'B';
+							}
+							else if (average[i] >= 70) {
+								grade[i] = 'C';
 						}
 						else if (average[i] >= 60) {
 							grade[i] = 'D';
@@ -231,48 +238,54 @@ int main() {
 						else {
 							grade[i] = 'F';
 						}
-
+						
 						cout << "\n==Scores Updated Successfully!==\n\n";
 						goto return1;
 					}
 				}
-
+				
 				if(!mark) {
 					cout << "\n==This Roll Number Doesn't Exist!==\n\n";
 				}
-
+				
 				goto return1;
 			}
-
+			
 			case 6: {
+				if (count == 0)
+				{
+					cout << "\n==There Is No student Yet!==\n\n";
+					goto return1;
+				}
+				
 				int rollDel;
 				cout << "Enter Roll Number To Delete: ";
 				cin >> rollDel;
-
+				
 				bool found = false;
-
+				
 				for (int i = 0; i < count; i++) {
 					if (rolls[i] == rollDel) {
 						found = true;
-
+						
 						for (int j = i; j < count - 1; j++) {
 							names[j] = names[j + 1];
 							rolls[j] = rolls[j + 1];
 							total[j] = total[j + 1];
 							average[j] = average[j + 1];
 							grade[j] = grade[j + 1];
-
+							
 							for (int k = 0; k < 5; k++) {
 								scores[j][k] = scores[j + 1][k];
 							}
 						}
-
+						
 						count--;
 						cout << "\n==Student deleted successfully!==\n\n";
 						goto return1;
 					}
 				}
-
+				
 				if (!found) {
 					cout << "\n==This Roll Number Doesn't Exist!==\n\n";
 				}
